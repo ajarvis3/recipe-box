@@ -19,7 +19,7 @@ jobs:
     - name: Set up Node.js version
       uses: actions/setup-node@v1
       with:
-        node-version: '12.x'
+        node-version: '14.x'
 
     - name: npm install, build, and test
       run: |
@@ -52,5 +52,5 @@ jobs:
       with:
         app-name: 'RecipeBoxApp'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_de97cfe7acdd4b04b10b975f329d9194 }}
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_5c7fe71d8e8d411ab93ef0821ee79c05 }}
         package: .
