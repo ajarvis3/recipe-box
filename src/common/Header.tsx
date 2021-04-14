@@ -1,21 +1,13 @@
 import React, { FunctionComponent } from 'react';
 import './Header.css';
 
-import { Link } from "react-router-dom";  
-
-/**
- * Child Props
- * Will have to change type when I use icons
- */
-interface ChildProps {
-    rightThing: string
-}
+import { Link, Switch, Route } from "react-router-dom";  
 
 /**
  * Header Function Component
  * App name, whatever
  */
-const Header: FunctionComponent<ChildProps> = (props: ChildProps) => {
+const Header: FunctionComponent = () => {
     return (
         <div className="header">
             <span className="headerItemWrapper">
@@ -27,9 +19,13 @@ const Header: FunctionComponent<ChildProps> = (props: ChildProps) => {
             </span>
             <span className="headerItemWrapper">
                 <h3 className="headerRightSide">
-                    <Link to={"/signup"} className="headerLink">
-                        {props.rightThing}
-                    </Link>
+                    <Switch>
+                        <Route path="/" exact>
+                            <Link to={"/signup"} className="headerLink">
+                                Sign Up
+                            </Link>
+                        </Route>
+                    </Switch>
                 </h3>
             </span>    
         </div>

@@ -3,7 +3,6 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link,
   useParams
 } from "react-router-dom";
 import {RecoilRoot} from 'recoil';
@@ -55,7 +54,7 @@ const App: FunctionComponent = () => {
       <Router>
         <ThemeProvider theme={theme}>
           <div className="App">
-            <Header rightThing={"Sign Up"} />
+            <Header />
             <div className="content">
               <Switch>
                 <Route path="/" exact component={Home} />
