@@ -17,6 +17,11 @@
     color: white;
 }
 
+.headerLink:hover {
+    color: black;
+    transition-duration: .5s;
+}
+
 .appName {
     left: 0px;
     margin: 0px;
