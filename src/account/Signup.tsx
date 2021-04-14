@@ -31,13 +31,14 @@ interface TextProps {
     text: string,
     setText: (text: string) => void,
     fieldName: string,
+    type: string,
 }
 
 /**
  * General Text Input
  */
 const EnterText: FunctionComponent<TextProps> = (props: TextProps) => {
-    const {text, setText, fieldName} = props;
+    const {text, setText, fieldName, type} = props;
 
     const changeState = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
         setText(event.target.value);
@@ -47,7 +48,7 @@ const EnterText: FunctionComponent<TextProps> = (props: TextProps) => {
         <div className="enterText">
             <div>{fieldName}:</div>
             <input 
-                type='text' 
+                type={type} 
                 placeholder={fieldName} 
                 value={text}
                 className="enterTextInput" 
@@ -63,7 +64,7 @@ const FirstName: FunctionComponent = () => {
     const [firstName, setFirstName] = useRecoilState(firstNameState);
 
     return (
-        <EnterText text={firstName} setText={setFirstName} fieldName={"First Name"} />
+        <EnterText text={firstName} setText={setFirstName} fieldName={"First Name"} type="text" />
     )
 }
 
@@ -74,7 +75,7 @@ const LastName: FunctionComponent = () => {
     const [lastName, setLastName] = useRecoilState(lastNameState);
 
     return (
-        <EnterText text={lastName} setText={setLastName} fieldName={"Last Name"} />
+        <EnterText text={lastName} setText={setLastName} fieldName={"Last Name"} type="email" />
     )
 }
 
@@ -85,7 +86,7 @@ const Email: FunctionComponent = () => {
     const [email, setEmail] = useRecoilState(emailState);
 
     return (
-        <EnterText text={email} setText={setEmail} fieldName={"Email"} />
+        <EnterText text={email} setText={setEmail} fieldName={"Email"} type="text" />
     )
 }
 
@@ -96,7 +97,7 @@ const Password: FunctionComponent = () => {
     const [password, setPassword] = useRecoilState(passwordState);
 
     return (
-        <EnterText text={password} setText={setPassword} fieldName={"Password"} />
+        <EnterText text={password} setText={setPassword} fieldName={"Password"} type="password" />
     )
 }
   
