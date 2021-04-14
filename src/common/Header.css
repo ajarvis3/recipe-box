@@ -1,0 +1,31 @@
+.header {
+    width: 100%;
+    margin: 0px;
+    background-color: #01A299;
+    color: white;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+}
+
+.headerItemWrapper {
+    width: 50%;
+}
+
+.headerLink {
+    text-decoration: none;
+    color: white;
+}
+
+.appName {
+    left: 0px;
+    margin: 0px;
+}
+
+.headerRightSide {
+    float: right;
+    margin-right: 20px;
+    margin-top: 8px;
+    margin-bottom: 0px;
+    margin-left: 0px;
+}
