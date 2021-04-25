@@ -1,8 +1,9 @@
 import React, { FunctionComponent, useCallback } from "react";
-import { atom, useRecoilState } from "recoil";
+import { atom, useRecoilState, useRecoilValue } from "recoil";
 import Button from "@material-ui/core/Button";
 
 import "./Signup.css";
+import generalFetch from "./fetch/generalfetch";
 
 const emailState = atom({
    key: "emailState", // unique ID (with respect to other atoms/selectors)
@@ -129,18 +130,36 @@ const Password: FunctionComponent = () => {
  * Sign Up Page
  */
 const SignUp: FunctionComponent = () => {
+   const firstName = useRecoilValue(firstNameState);
+   const lastName = useRecoilValue(lastNameState);
+   const password = useRecoilValue(passwordState);
+   const email = useRecoilValue(emailState);
+
+   const onClick = () => {
+     generalFetch(
+       "users/signup",
+       JSON.stringify({
+         firstName: firstName,
+         lastName: lastName,
+         password: password,
+         email: email,
+       }),
+       undefined
+     );
+   };
+
    return (
-      <div id="signUpBox">
-         <FirstName />
-         <LastName />
-         <Email />
-         <Password />
-         <div className="signupButton">
-            <Button variant="contained" color="primary">
-               Sign Up
-            </Button>
-         </div>
-      </div>
+     <div id="signUpBox">
+       <FirstName />
+       <LastName />
+       <Email />
+       <Password />
+       <div className="signupButton">
+         <Button variant="contained" color="primary" onClick={onClick}>
+           Sign Up
+         </Button>
+       </div>
+     </div>
    );
 };
 
