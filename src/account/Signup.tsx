@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useCallback } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import Button from "@material-ui/core/Button";
 
 import "./Signup.css";
@@ -9,6 +9,8 @@ import {
    lastNameState,
    passwordState,
 } from "./recoil";
+
+import generalFetch from "./fetch/generalfetch";
 
 /**
  * Used as props for text input
@@ -115,6 +117,24 @@ const Password: FunctionComponent = () => {
  * Sign Up Page
  */
 const SignUp: FunctionComponent = () => {
+   const firstName = useRecoilValue(firstNameState);
+   const lastName = useRecoilValue(lastNameState);
+   const password = useRecoilValue(passwordState);
+   const email = useRecoilValue(emailState);
+
+   const onClick = () => {
+      generalFetch(
+         "users/signup",
+         JSON.stringify({
+            firstName: firstName,
+            lastName: lastName,
+            password: password,
+            email: email,
+         }),
+         undefined
+      );
+   };
+
    return (
       <div id="signUpBox">
          <FirstName />
@@ -122,7 +142,7 @@ const SignUp: FunctionComponent = () => {
          <Email />
          <Password />
          <div className="signupButton">
-            <Button variant="contained" color="primary">
+            <Button variant="contained" color="primary" onClick={onClick}>
                Sign Up
             </Button>
          </div>
