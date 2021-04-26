@@ -3,12 +3,7 @@ import { useRecoilState } from "recoil";
 import Button from "@material-ui/core/Button";
 
 import "./Signup.css";
-import {
-   emailState,
-   firstNameState,
-   lastNameState,
-   passwordState,
-} from "./recoil";
+import { emailState, passwordState } from "./recoil";
 
 /**
  * Used as props for text input
@@ -48,38 +43,6 @@ const EnterText: FunctionComponent<TextProps> = (props: TextProps) => {
 };
 
 /**
- * Area to enter the first name
- */
-const FirstName: FunctionComponent = () => {
-   const [firstName, setFirstName] = useRecoilState(firstNameState);
-
-   return (
-      <EnterText
-         text={firstName}
-         setText={setFirstName}
-         fieldName={"First Name"}
-         type="text"
-      />
-   );
-};
-
-/**
- * Area to enter the last name
- */
-const LastName: FunctionComponent = () => {
-   const [lastName, setLastName] = useRecoilState(lastNameState);
-
-   return (
-      <EnterText
-         text={lastName}
-         setText={setLastName}
-         fieldName={"Last Name"}
-         type="email"
-      />
-   );
-};
-
-/**
  * Area to enter the email
  */
 const Email: FunctionComponent = () => {
@@ -112,22 +75,20 @@ const Password: FunctionComponent = () => {
 };
 
 /**
- * Sign Up Page
+ * Sign In Page
  */
-const SignUp: FunctionComponent = () => {
+const SignIn: FunctionComponent = () => {
    return (
       <div id="signUpBox">
-         <FirstName />
-         <LastName />
          <Email />
          <Password />
          <div className="signupButton">
             <Button variant="contained" color="primary">
-               Sign Up
+               Sign In
             </Button>
          </div>
       </div>
    );
 };
 
-export default SignUp;
+export default SignIn;
