@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 
 const Dashboard: FunctionComponent = () => {
-   return <span></span>;
+   return <span>dashboard</span>;
 };
 
 export default Dashboard;

@@ -1,10 +1,8 @@
-import React, {FunctionComponent} from 'react';
+import {FunctionComponent} from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  useParams,
-  Link
 } from "react-router-dom";
 import {RecoilRoot} from 'recoil';
 
@@ -15,36 +13,7 @@ import SignUp from './account/Signup';
 
 import { createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import SignIn from './account/Signin';
-import { Button } from '@material-ui/core';
-
-interface IParams {
-  route: string
-}
-
-const Parameter: FunctionComponent = () => {
-  let { route } = useParams<IParams>();
-  return (
-    <h3>
-      {route}
-    </h3>
-  );
-}
-
-const Home: FunctionComponent = () => {
-  return (
-    <>
-      <h1>
-        Home
-      </h1>
-
-      <Link to={"/signin"}>
-        <Button variant="contained" color="primary">
-          Sign Up
-        </Button>
-      </Link>
-    </>
-)
-}
+import Authorization from './auth/Authorization'
 
 const App: FunctionComponent = () => {
   const theme = createMuiTheme({
@@ -66,14 +35,14 @@ const App: FunctionComponent = () => {
            <ThemeProvider theme={theme}>
               <div className="App">
                  <Header />
-                 <div className="content">
-                    <Switch>
-                       <Route path="/" exact component={Home} />
-                       <Route path="/signup" exact component={SignUp} />
-                       <Route path="/signin" exact component={SignIn} />
-                       <Route path="/:route" component={Parameter} />
-                    </Switch>
-                 </div>
+                     <div className="content">
+                        <Switch>
+                           <Route path="/" exact component={Authorization} />
+                           <Route path="/signup" exact component={SignUp} />
+                           <Route path="/signin" exact component={SignIn} />
+                           {/* <Route path="/:route" component={Parameter} /> */}
+                        </Switch>
+                     </div>
               </div>
            </ThemeProvider>
         </Router>
