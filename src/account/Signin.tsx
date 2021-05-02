@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import Button from "@material-ui/core/Button";
 
 import "./Signup.css";
@@ -17,7 +17,7 @@ import loginState from "../recoil/LoginState";
 const SignIn: FunctionComponent = () => {
    const [password, setPassword] = useRecoilState(passwordState);
    const [email, setEmail] = useRecoilState(emailState);
-   const setLogin = useSetRecoilState(loginState);
+   const [login, setLogin] = useRecoilState(loginState);
 
    useCleanup<string>([setPassword, setEmail], "");
 
@@ -33,18 +33,19 @@ const SignIn: FunctionComponent = () => {
          },
          "POST"
       );
-      if (typeof response === "number") {
-         alert(`Error ${response}`);
-      } else {
-         response.then((data) => {
-            setLogin(true); // should be a 200 response so
-            setToken(data);
+      response.then((value) => {
+         if (typeof value === "number") {
+            // do nothing
+         } else {
+            setLogin(true);
+            setToken(value);
             return <Redirect to="/" />;
-         });
-      }
+         }   
+      })
    };
 
    return (
+      (!login ?
       <div id="signUpBox">
          <EnterText fieldName={"Email"} type="text" />
 
@@ -54,7 +55,7 @@ const SignIn: FunctionComponent = () => {
                Sign In
             </Button>
          </div>
-      </div>
+      </div> : <Redirect to='/' />)
    );
 };
 

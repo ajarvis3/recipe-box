@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useRecoilState } from "recoil";
 import Button from "@material-ui/core/Button";
 
 import "./Signup.css";
@@ -21,11 +21,11 @@ import { Redirect } from "react-router-dom";
  * Sign Up Page
  */
 const SignUp: FunctionComponent = () => {
-   const setFirstName = useSetRecoilState(firstNameState);
-   const setLastName = useSetRecoilState(lastNameState);
+   const [firstName, setFirstName] = useRecoilState(firstNameState);
+   const [lastName, setLastName] = useRecoilState(lastNameState);
    const [password, setPassword] = useRecoilState(passwordState);
    const [email, setEmail] = useRecoilState(emailState);
-   const setLogin = useSetRecoilState(loginState);
+   const [login, setLogin] = useRecoilState(loginState);
 
    useCleanup<string>([setFirstName, setLastName, setPassword, setEmail], "");
 
@@ -33,6 +33,8 @@ const SignUp: FunctionComponent = () => {
       const response = generalFetch(
          "users/signup",
          JSON.stringify({
+            firstName: firstName,
+            lastName: lastName,
             email: email,
             password: password,
          }),
@@ -41,18 +43,18 @@ const SignUp: FunctionComponent = () => {
          },
          "POST"
       );
-      if (typeof response === "number") {
-         alert(`Error ${response}`);
-      } else {
-         response.then((data) => {
-            setLogin(true); // should be a 200 response so
-            setToken(data);
+      response.then((value) => {
+         if (typeof value === "number") {
+            // do nothing
+         } else {
+            setLogin(true);
+            setToken(value);
             return <Redirect to="/" />;
-         });
-      }
+         }
+      });
    };
 
-   return (
+   return !login ? (
       <div id="signUpBox">
          <EnterText fieldName={"First Name"} type="text" />
          <EnterText fieldName={"Last Name"} type="email" />
@@ -64,6 +66,8 @@ const SignUp: FunctionComponent = () => {
             </Button>
          </div>
       </div>
+   ) : (
+      <Redirect to="/" />
    );
 };
 

@@ -1,3 +1,5 @@
+import React from "react";
+import { Link } from "react-router-dom";
 import { useSetRecoilState } from "recoil";
 import loginState from "../recoil/LoginState";
 import deleteToken from "./utils/deletetoken";
@@ -10,7 +12,15 @@ const SignOut = () => {
       deleteToken();
    };
 
-   return <span onClick={onClick}>Sign out</span>;
+   return (
+      (
+      <Link to="/" onClick={onClick} className="headerLink">
+         
+         Sign out
+      
+      </Link>
+   )
+   );
 };
 
 export default SignOut;
