@@ -18,12 +18,18 @@ const generalFetch = (
       method: method,
       headers: headers,
       body: body,
-   })
-      .then(
-         (value) => value.json(),
-         (err) => {
-            console.error(err);
+   }).then(
+      (value) => {
+         if (value.status >= 200 && value.status <= 300) {
+            return value.json();
+         } else {
+            return value.status;
          }
-      )};
+      },
+      (err) => {
+         console.error(err);
+      }
+   );
+};
 
 export default generalFetch;

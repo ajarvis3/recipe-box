@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import Button from "@material-ui/core/Button";
 
 import "./Signup.css";
@@ -13,32 +13,43 @@ import {
 import generalFetch from "./fetch/generalfetch";
 import useCleanup from "../hooks/Cleanup";
 import EnterText from "./EnterText";
+import loginState from "../recoil/LoginState";
+import setToken from "./utils/settoken";
+import { Redirect } from "react-router-dom";
 
 /**
  * Sign Up Page
  */
 const SignUp: FunctionComponent = () => {
-   const [firstName, setFirstName] = useRecoilState(firstNameState);
-   const [lastName, setLastName] = useRecoilState(lastNameState);
+   const setFirstName = useSetRecoilState(firstNameState);
+   const setLastName = useSetRecoilState(lastNameState);
    const [password, setPassword] = useRecoilState(passwordState);
    const [email, setEmail] = useRecoilState(emailState);
+   const setLogin = useSetRecoilState(loginState);
 
    useCleanup<string>([setFirstName, setLastName, setPassword, setEmail], "");
 
    const onClick = () => {
-      generalFetch(
+      const response = generalFetch(
          "users/signup",
          JSON.stringify({
-            firstName: firstName,
-            lastName: lastName,
-            password: password,
             email: email,
+            password: password,
          }),
          {
             "Content-type": "application/json; charset=UTF-8",
          },
          "POST"
       );
+      if (typeof response === "number") {
+         alert(`Error ${response}`);
+      } else {
+         response.then((data) => {
+            setLogin(true); // should be a 200 response so
+            setToken(data);
+            return <Redirect to="/" />;
+         });
+      }
    };
 
    return (
