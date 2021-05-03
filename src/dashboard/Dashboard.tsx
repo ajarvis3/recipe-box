@@ -1,12 +1,21 @@
 import React, { FunctionComponent } from "react";
-import fetchMetaData from "../account/fetch/fetchmetadata";
+import RecipeHeader from "./components/header/RecipeHeader";
+import RecipeCard from "./components/recipe-card/RecipeCard";
+import IMetadata from "./types/Metadata";
 
 const Dashboard: FunctionComponent = () => {
-   fetchMetaData(
-      "https://joyfoodsunshine.com/the-most-amazing-chocolate-chip-cookies/"
+   let recipe_data = [];
+   if (process.env.NODE_ENV === "development") {
+      recipe_data = require("./dev-data/data").default;
+   }
+   return (
+      <>
+         <RecipeHeader />
+         {recipe_data.map((data: IMetadata) => 
+            <RecipeCard metadata={data}  />
+         )}
+      </>
    );
-
-   return <span>dashboard</span>;
 };
 
 export default Dashboard;

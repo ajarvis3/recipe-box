@@ -1,0 +1,7 @@
+.recipeCard {
+    display: flex;
+}
+
+.recipeCardTitle {
+    border-bottom: 1px solid #707070;
+}
