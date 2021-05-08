@@ -5,6 +5,7 @@ import { Link, Switch, Route } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import loginState from "../recoil/LoginState";
 import SignOut from './SignOut';
+import { Box, Typography } from '@material-ui/core';
   
 
 /**
@@ -15,16 +16,16 @@ const Header: FunctionComponent = () => {
     const login = useRecoilValue(loginState);
 
     return (
-        <div className="header">
-            <span className="headerItemWrapper">
-                <h1 className="appName">
+        <Box component='div' className="header">
+            <Box component='span' className="headerItemWrapper">
+                <Typography variant='h1' className="appName">
                     <Link to="/" className="headerLink">
                         Recipe Box
                     </Link>
-                </h1>
-            </span>
-            <span className="headerItemWrapper">
-                <h3 className="headerRightSide">
+                </Typography>
+            </Box>
+            <Box component='span' className="headerItemWrapper">
+                <Typography variant='h3' className="headerRightSide">
                     <Switch>
                         {!login ? 
                             <Route path="/" exact>
@@ -35,9 +36,9 @@ const Header: FunctionComponent = () => {
                             : <SignOut />
                         }
                     </Switch>
-                </h3>
-            </span>    
-        </div>
+                </Typography>
+            </Box>    
+        </Box>
     )
 }
 

@@ -11,9 +11,9 @@ const Dashboard: FunctionComponent = () => {
    return (
       <>
          <RecipeHeader />
-         {recipe_data.map((data: IMetadata) => 
-            <RecipeCard metadata={data}  />
-         )}
+         {recipe_data.map((data: IMetadata) => (
+            <RecipeCard key={data.url} metadata={data} />
+         ))}
       </>
    );
 };

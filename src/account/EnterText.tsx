@@ -1,4 +1,5 @@
-import { FunctionComponent } from "react";
+import { Box, TextField } from "@material-ui/core";
+import React, { FunctionComponent } from "react";
 import useChangeState from "../hooks/UseChangeState";
 import useStateValue from "../hooks/UseStateValue";
 import ITextProps from "./types/TextProps";
@@ -13,9 +14,9 @@ const EnterText: FunctionComponent<ITextProps> = (props: ITextProps) => {
    const text = useStateValue(fieldName);
 
    return (
-      <div className="enterText">
-         <div>{fieldName}:</div>
-         <input
+      <Box component='div' className="enterText">
+         <Box component='div'>{fieldName}:</Box>
+         <TextField
             type={type}
             placeholder={fieldName}
             value={text}
@@ -23,7 +24,7 @@ const EnterText: FunctionComponent<ITextProps> = (props: ITextProps) => {
             name={fieldName}
             onChange={onChange}
          />
-      </div>
+      </Box>
    );
 };
 

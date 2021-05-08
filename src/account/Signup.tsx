@@ -16,6 +16,7 @@ import EnterText from "./EnterText";
 import loginState from "../recoil/LoginState";
 import setToken from "./utils/settoken";
 import { Redirect } from "react-router-dom";
+import { Box } from "@material-ui/core";
 
 /**
  * Sign Up Page
@@ -55,17 +56,17 @@ const SignUp: FunctionComponent = () => {
    };
 
    return !login ? (
-      <div id="signUpBox">
+      <Box component='div' id="signUpBox">
          <EnterText fieldName={"First Name"} type="text" />
          <EnterText fieldName={"Last Name"} type="email" />
          <EnterText fieldName={"Email"} type="text" />
          <EnterText fieldName={"Password"} type="password" />
-         <div className="signupButton">
+         <Box component='div' className="signupButton">
             <Button variant="contained" color="primary" onClick={onClick}>
                Sign Up
             </Button>
-         </div>
-      </div>
+         </Box>
+      </Box>
    ) : (
       <Redirect to="/" />
    );

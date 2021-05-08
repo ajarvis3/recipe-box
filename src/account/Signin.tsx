@@ -10,6 +10,7 @@ import setToken from "./utils/settoken";
 import EnterText from "./EnterText";
 import { Redirect } from "react-router-dom";
 import loginState from "../recoil/LoginState";
+import { Box } from "@material-ui/core";
 
 /**
  * Sign In Page
@@ -21,7 +22,8 @@ const SignIn: FunctionComponent = () => {
 
    useCleanup<string>([setPassword, setEmail], "");
 
-   const onClick = () => {
+   const onClick = (e: React.SyntheticEvent) => {
+      e.preventDefault();
       const response = generalFetch(
          "auth/signin",
          JSON.stringify({
@@ -46,16 +48,16 @@ const SignIn: FunctionComponent = () => {
 
    return (
       (!login ?
-      <div id="signUpBox">
+      <Box component='form' id="signUpBox" onSubmit={onClick} >
          <EnterText fieldName={"Email"} type="text" />
 
          <EnterText fieldName={"Password"} type="password" />
-         <div className="signupButton">
-            <Button variant="contained" color="primary" onClick={onClick}>
+         <Box component='div' className="signupButton">
+            <Button variant="contained" color="primary" type='submit'>
                Sign In
             </Button>
-         </div>
-      </div> : <Redirect to='/' />)
+         </Box>
+      </Box> : <Redirect to='/' />)
    );
 };
 

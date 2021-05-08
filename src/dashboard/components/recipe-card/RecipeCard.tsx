@@ -8,15 +8,17 @@ const useStyles = makeStyles({
       minWidth: 275,
       maxWidth: 500,
       margin: 50,
-      padding: 10,
+      padding: 25,
    },
    content: {
       minWidth: 275,
       maxWidth: 500,
+      padding: 0,
    },
    image: {
-      minWidth: 255,
-      maxWidth: 480,
+      minWidth: 275,
+      maxWidth: 500,
+      borderRadius: 5,
    },
 });
 

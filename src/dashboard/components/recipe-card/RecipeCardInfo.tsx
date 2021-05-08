@@ -1,3 +1,4 @@
+import { Box } from "@material-ui/core";
 import React, { FunctionComponent } from "react";
 import IRecipeCardProps from "../../types/RecipeCardProps";
 import RecipeCardDescription from "./RecipeCardDescription";
@@ -9,10 +10,10 @@ const RecipeCardInfo: FunctionComponent<IRecipeCardProps> = (
    const { metadata } = props;
    const { title, description } = metadata;
    return (
-      <span>
+      <Box component='span'>
          <RecipeCardTitle title={title} />
          <RecipeCardDescription description={description} />
-      </span>
+      </Box>
    );
 };
 

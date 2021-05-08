@@ -1,5 +1,12 @@
+import { Typography } from "@material-ui/core";
+import React from "react";
+
 const MyRecipes = () => {
-   return <h2 className="myRecipes">My Recipes</h2>;
+   return (
+      <Typography variant="h2" className="myRecipes">
+         My Recipes
+      </Typography>
+   );
 };
 
 export default MyRecipes;

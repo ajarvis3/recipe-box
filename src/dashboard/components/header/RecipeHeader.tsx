@@ -1,3 +1,4 @@
+import { Box } from "@material-ui/core";
 import React from "react";
 import AddRecipe from "./AddRecipe";
 import MyRecipes from "./MyRecipes";
@@ -5,14 +6,14 @@ import "./RecipeHeader.css";
 
 const RecipeHeader = () => {
    return (
-      <div className="recipeHeader">
-         <span className="recipeHeaderItemWrapper">
+      <Box component='div' className="recipeHeader">
+         <Box component='span' className="recipeHeaderItemWrapper">
             <MyRecipes />
-         </span>
-         <span className="recipeHeaderItemWrapper">
+         </Box>
+         <Box component='span' className="recipeHeaderItemWrapper">
             <AddRecipe />
-         </span>
-      </div>
+         </Box>
+      </Box>
    );
 };
 
