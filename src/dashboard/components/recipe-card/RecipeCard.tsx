@@ -8,17 +8,18 @@ const useStyles = makeStyles({
       minWidth: 275,
       maxWidth: 500,
       margin: 50,
-      padding: 25,
    },
    content: {
       minWidth: 275,
       maxWidth: 500,
-      padding: 0,
+      padding: 15,
    },
    image: {
-      minWidth: 275,
       maxWidth: 500,
       borderRadius: 5,
+   },
+   imageContainer: {
+      padding: 0,
    },
 });
 
@@ -31,14 +32,14 @@ const RecipeCard: FunctionComponent<IRecipeCardProps> = (
    const { title, imageUrl } = metadata;
    return (
       <Card raised className={classes.root}>
-         <CardContent component="span" className={classes.content}>
+         <CardContent component="div" className={classes.imageContainer}>
             <img
                src={imageUrl}
                alt={`${title}`}
                className={classes.image}
             ></img>
          </CardContent>
-         <CardContent className={classes.content} component="span">
+         <CardContent className={classes.content} component="div">
             <RecipeCardInfo metadata={metadata} />
          </CardContent>
       </Card>

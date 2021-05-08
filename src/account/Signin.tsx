@@ -11,6 +11,7 @@ import EnterText from "./EnterText";
 import { Redirect } from "react-router-dom";
 import loginState from "../recoil/LoginState";
 import { Box } from "@material-ui/core";
+import useCommonStyles from "./styles";
 
 /**
  * Sign In Page
@@ -19,6 +20,8 @@ const SignIn: FunctionComponent = () => {
    const [password, setPassword] = useRecoilState(passwordState);
    const [email, setEmail] = useRecoilState(emailState);
    const [login, setLogin] = useRecoilState(loginState);
+
+   const classes = useCommonStyles();
 
    useCleanup<string>([setPassword, setEmail], "");
 
@@ -48,11 +51,11 @@ const SignIn: FunctionComponent = () => {
 
    return (
       (!login ?
-      <Box component='form' id="signUpBox" onSubmit={onClick} >
+      <Box component='form' className={classes.signUpBox} onSubmit={onClick} >
          <EnterText fieldName={"Email"} type="text" />
 
          <EnterText fieldName={"Password"} type="password" />
-         <Box component='div' className="signupButton">
+         <Box component='div' className={classes.signUpButton}>
             <Button variant="contained" color="primary" type='submit'>
                Sign In
             </Button>
