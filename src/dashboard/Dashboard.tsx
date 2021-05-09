@@ -1,28 +1,44 @@
 import { Grid } from "@material-ui/core";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
+import { useRecoilState, useRecoilValue } from "recoil";
+import authenticatedFetch from "../account/fetch/authenticatedfetch";
+import userIdState from "../recoil/UserId";
+import userRecipesState from "../recoil/UserRecipes";
 import RecipePopup from "./components/add-recipe/RecipePopup";
 import RecipeHeader from "./components/header/RecipeHeader";
 import RecipeCard from "./components/recipe-card/RecipeCard";
-import IMetadata from "./types/Metadata";
+import IRecipeData from "./types/RecipeData";
 
 const Dashboard: FunctionComponent = () => {
-   let recipe_data = [];
-   if (process.env.NODE_ENV === "development") {
-      recipe_data = require("./dev-data/data").default;
-   }
+   const [recipeData, setRecipeData] = useRecoilState(userRecipesState);
+   const userId = useRecoilValue(userIdState);
+
+   useEffect(() => {
+      authenticatedFetch(
+         `/content/recipes?uid=${userId}`,
+         undefined,
+         "GET"
+      ).then((value: IRecipeData[]) => {
+         setRecipeData(value);
+      });
+   }, []);
+
+   // if (process.env.NODE_ENV === "development") {
+   //    recipe_data = require("./dev-data/data").default;
+   // }
    return (
       <>
          <RecipeHeader />
          <Grid container spacing={0}>
             <RecipePopup />
-            {recipe_data.map((data: IMetadata) => (
-               <Grid item key={data.url}>
-                  <RecipeCard key={data.url} metadata={data} />
+            {recipeData.map((data: IRecipeData) => (
+               <Grid item key={data._id}>
+                  <RecipeCard metadata={data} />
                </Grid>
             ))}
          </Grid>
       </>
    );
-};
+};;;;;;;;;;;;;;;
 
 export default Dashboard;

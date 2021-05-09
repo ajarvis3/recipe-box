@@ -1,6 +1,6 @@
 const generalFetch = (
-   path: string,
-   body: BodyInit,
+   urlPath: string,
+   body: BodyInit | undefined,
    headers: HeadersInit | undefined,
    method: string
 ) => {
@@ -13,12 +13,18 @@ const generalFetch = (
    const env = process.env.NODE_ENV || "development";
    let host = "https://recipeboxapp.azurewebsites.net";
    if (env === "development") host = "http://localhost:8080";
-   const url = `${host}/${path}`;
-   return fetch(url, {
-      method: method,
-      headers: headers,
-      body: body,
-   }).then(
+   const url = new URL(urlPath, host).href;
+   const options = body
+      ? {
+            method: method,
+            headers: headers,
+            body: body,
+         }
+      : {
+            method: method,
+            headers: headers,
+         };;
+   return fetch(url, options).then(
       (value) => {
          if (value.status >= 200 && value.status <= 300) {
             return value.json();

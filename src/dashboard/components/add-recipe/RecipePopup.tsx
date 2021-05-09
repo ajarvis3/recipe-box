@@ -4,13 +4,13 @@ import Popup from "reactjs-popup";
 import { useRecoilState } from "recoil";
 import popupState from "../../recoil/Popup";
 import "reactjs-popup/dist/index.css";
+import UrlInput from "./UrlInput";
 
 const RecipePopup: FunctionComponent = () => {
    // make state for url input in recoil
    // make recoil state for open
    const [url, setUrl] = useState("");
    const [open, setOpen] = useRecoilState(popupState);
-   console.log(open);
 
    const closeModal = () => setOpen(false);
 
@@ -28,14 +28,7 @@ const RecipePopup: FunctionComponent = () => {
          onClose={closeModal}
          position="center center"
       >
-         <Input
-            type="text"
-            placeholder="Recipe URL"
-            value={url}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-               onChange(e, setUrl)
-            }
-         />
+         <UrlInput />
       </Popup>
    );
 };

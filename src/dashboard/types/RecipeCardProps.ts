@@ -1,4 +1,4 @@
-import IMetadata from "./Metadata";
+import IMetadata from "./RecipeData";
 
 interface IRecipeCardProps {
    metadata: IMetadata;

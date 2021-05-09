@@ -6,9 +6,11 @@ import Home from "../home/Home";
 import Dashboard from "../dashboard/Dashboard";
 import authenticatedFetch from "../account/fetch/authenticatedfetch";
 import setToken from "../account/utils/settoken";
+import userIdState from "../recoil/UserId";
 
 const Authorization = (props: IAuthProps) => {
    const [login, setLogin] = useRecoilState(loginState);
+   const [userId, setUserIdState] = useRecoilState(userIdState);
 
    useEffect(() => {
       const response = authenticatedFetch(
@@ -21,7 +23,8 @@ const Authorization = (props: IAuthProps) => {
             setLogin(false);
          } else {
             setLogin(true);
-            setToken(value);
+            setToken(value.token);
+            setUserIdState(value.id);
          }   
       })
       // auth, check if logged in blah blah blah

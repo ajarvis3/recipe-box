@@ -1,6 +1,10 @@
 import generalFetch from "./generalfetch";
 
-const authenticatedFetch = (path: string, body: BodyInit, method: string) => {
+const authenticatedFetch = (
+   path: string,
+   body: BodyInit | undefined,
+   method: string
+) => {
    const headers: HeadersInit = {
       "Content-Type": "application/json",
       "Authentication": "bearer " + localStorage.getItem("token"),
