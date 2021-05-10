@@ -18,6 +18,7 @@ import setToken from "./utils/settoken";
 import { Redirect } from "react-router-dom";
 import { Box } from "@material-ui/core";
 import useCommonStyles from "./styles";
+import userIdState from "../recoil/UserId";
 
 /**
  * Sign Up Page
@@ -28,12 +29,14 @@ const SignUp: FunctionComponent = () => {
    const [password, setPassword] = useRecoilState(passwordState);
    const [email, setEmail] = useRecoilState(emailState);
    const [login, setLogin] = useRecoilState(loginState);
+   const [userId, setUserId] = useRecoilState(userIdState);
 
    const classes = useCommonStyles();
 
    useCleanup<string>([setFirstName, setLastName, setPassword, setEmail], "");
 
-   const onClick = () => {
+   const onSubmit = (e: React.FormEvent) => {
+      e.preventDefault();
       const response = generalFetch(
          "users/signup",
          JSON.stringify({
@@ -52,19 +55,20 @@ const SignUp: FunctionComponent = () => {
             // do nothing
          } else {
             setLogin(true);
-            setToken(value);
+            setUserId(value.id);
+            setToken(value.token);
             return <Redirect to="/" />;
          }
       });
    };
 
    return !login ? (
-      <Box component='form' className={classes.signUpBox} onSubmit={onClick}>
+      <Box component="form" className={classes.signUpBox} onSubmit={onSubmit}>
          <EnterText fieldName={"First Name"} type="text" />
-         <EnterText fieldName={"Last Name"} type="email" />
-         <EnterText fieldName={"Email"} type="text" />
+         <EnterText fieldName={"Last Name"} type="text" />
+         <EnterText fieldName={"Email"} type="email" />
          <EnterText fieldName={"Password"} type="password" />
-         <Box component='div' className={classes.signUpButton}>
+         <Box component="div" className={classes.signUpButton}>
             <Button variant="contained" color="primary" type="submit">
                Sign Up
             </Button>

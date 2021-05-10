@@ -13,6 +13,8 @@ const generalFetch = (
    const env = process.env.NODE_ENV || "development";
    let host = "https://recipeboxapp.azurewebsites.net";
    if (env === "development") host = "http://localhost:8080";
+   console.log(env);
+   console.log(host);
    const url = new URL(urlPath, host).href;
    const options = body
       ? {

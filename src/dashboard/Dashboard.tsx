@@ -1,5 +1,5 @@
 import { Grid } from "@material-ui/core";
-import React, { FunctionComponent, useEffect, useState } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import authenticatedFetch from "../account/fetch/authenticatedfetch";
 import userIdState from "../recoil/UserId";

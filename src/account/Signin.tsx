@@ -12,6 +12,7 @@ import { Redirect } from "react-router-dom";
 import loginState from "../recoil/LoginState";
 import { Box } from "@material-ui/core";
 import useCommonStyles from "./styles";
+import userIdState from "../recoil/UserId";
 
 /**
  * Sign In Page
@@ -20,6 +21,7 @@ const SignIn: FunctionComponent = () => {
    const [password, setPassword] = useRecoilState(passwordState);
    const [email, setEmail] = useRecoilState(emailState);
    const [login, setLogin] = useRecoilState(loginState);
+   const [userId, setUserId] = useRecoilState(userIdState);
 
    const classes = useCommonStyles();
 
@@ -43,6 +45,7 @@ const SignIn: FunctionComponent = () => {
             // do nothing
          } else {
             setLogin(true);
+            setUserId(value.id);
             setToken(value);
             return <Redirect to="/" />;
          }   
