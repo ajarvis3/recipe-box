@@ -18,10 +18,10 @@ const Dashboard: FunctionComponent = () => {
          `/content/recipes?uid=${userId}`,
          undefined,
          "GET"
-      ).then((value: IRecipeData[]) => {
-         setRecipeData(value);
+      ).then((value: IRecipeData[] | number) => {
+         if (!(typeof value === "number")) setRecipeData(value);
       });
-   }, []);
+   }, [userId]);
 
    // if (process.env.NODE_ENV === "development") {
    //    recipe_data = require("./dev-data/data").default;
@@ -31,14 +31,15 @@ const Dashboard: FunctionComponent = () => {
          <RecipeHeader />
          <Grid container spacing={0}>
             <RecipePopup />
-            {recipeData.map((data: IRecipeData) => (
-               <Grid item key={data._id}>
-                  <RecipeCard metadata={data} />
-               </Grid>
-            ))}
+            {recipeData &&
+               recipeData.map((data: IRecipeData) => (
+                  <Grid item key={data._id}>
+                     <RecipeCard metadata={data} />
+                  </Grid>
+               ))}
          </Grid>
       </>
    );
-};;;;;;;;;;;;;;;
+};
 
 export default Dashboard;
