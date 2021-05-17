@@ -9,7 +9,6 @@ import popupState from "../../recoil/Popup";
 const useStyles = makeStyles({
    recipeHeaderRight: {
       float: "right",
-      marginRight: "8px",
       marginBlockStart: "0.83em",
       marginBlockEnd: "0.3em",
       marginInlineStart: "0",

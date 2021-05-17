@@ -4,23 +4,30 @@ import Grid from "@material-ui/core/Grid";
 import { Dispatch } from "react";
 import { SetStateAction } from "react";
 import currentRecipeIndexState from "../../recoil/CurrentRecipeIndex";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import userRecipesState from "../../../recoil/UserRecipes";
 import RecipeFieldInput from "./RecipeFieldInput";
 import { Button, makeStyles } from "@material-ui/core";
 import authenticatedFetch from "../../../account/fetch/authenticatedfetch";
 import IRecipeData from "../../types/RecipeData";
+import popupState from "../../recoil/Popup";
 
 const RecipeFields: FunctionComponent = () => {
-   const recipeIndex = useRecoilValue(currentRecipeIndexState);
    const [recipes, setRecipes] = useRecoilState(userRecipesState);
+   const recipeIndex = useRecoilValue(currentRecipeIndexState);
+   const setOpen = useSetRecoilState(popupState);
+
    const currentRecipe = recipes[recipeIndex];
+
+
    const [title, setTitle] = useState(currentRecipe.title);
    const [author, setAuthor] = useState(currentRecipe.author);
    const [source, setSource] = useState(currentRecipe.source);
    const [description, setDescription] = useState(currentRecipe.description);
    const [imageUrl, setImageUrl] = useState(currentRecipe.imageUrl);
    const [comments, setComments] = useState(currentRecipe.comments);
+
+
 
    const getOnChange = (setState: Dispatch<SetStateAction<string>>) => {
       return (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,16 +51,15 @@ const RecipeFields: FunctionComponent = () => {
       event.preventDefault();
       const newRecipe = getNewRecipe();
       const newRecipes = recipes.slice();
-      console.log(newRecipe);
       // deal with backend things...
       authenticatedFetch(
          `/content/recipes?id=${newRecipe._id}`,
          JSON.stringify({ recipe: newRecipe }),
          "PATCH"
       ).then((value: IRecipeData) => {
-         console.log(value);
          newRecipes[recipeIndex] = value;
          setRecipes(newRecipes);
+         setOpen(false);
       });
    };
 

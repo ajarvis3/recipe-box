@@ -2,6 +2,7 @@ import { Grid } from "@material-ui/core";
 import React, { FunctionComponent, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import authenticatedFetch from "../account/fetch/authenticatedfetch";
+import searchState from "../recoil/Search";
 import userIdState from "../recoil/UserId";
 import userRecipesState from "../recoil/UserRecipes";
 import RecipePopup from "./components/add-recipe/RecipePopup";
@@ -12,6 +13,24 @@ import IRecipeData from "./types/RecipeData";
 const Dashboard: FunctionComponent = () => {
    const [recipeData, setRecipeData] = useRecoilState(userRecipesState);
    const userId = useRecoilValue(userIdState);
+   const search = useRecoilValue(searchState);
+
+   const getSearchRecipes = () => {
+      const searchLower = search.toLowerCase();
+      const filterMethod = (str: string) => {
+         return str.toLowerCase().includes(searchLower);
+      };
+      return recipeData.filter((recipe) => {
+         return (
+            filterMethod(recipe.title) ||
+            filterMethod(recipe.author) ||
+            filterMethod(recipe.description) ||
+            filterMethod(recipe.source) ||
+            filterMethod(recipe.url) ||
+            recipe.comments.some((comment) => filterMethod(comment))
+         );
+      });
+   };
 
    useEffect(() => {
       authenticatedFetch(
@@ -32,7 +51,7 @@ const Dashboard: FunctionComponent = () => {
          <Grid container spacing={0}>
             <RecipePopup />
             {recipeData &&
-               recipeData.map((data: IRecipeData, index: number) => (
+               getSearchRecipes().map((data: IRecipeData, index: number) => (
                   <Grid item key={data._id}>
                      <RecipeCard metadata={data} index={index} />
                   </Grid>

@@ -4,6 +4,8 @@ import React from "react";
 const useStyles = makeStyles({
    myRecipes: {
       marginBlockEnd: "0.3em",
+      display: "inline-block",
+      fontSize: "3rem",
    },
 });
 
