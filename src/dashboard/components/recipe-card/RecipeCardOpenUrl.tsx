@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 import OpenInNewIcon from "@material-ui/icons/OpenInNew";
 import { FunctionComponent } from "react";
-import IUrlProps from "./types/recipecardurlprops";
+import IUrlProps from "./types/RecipeCardUrlProps";
 
 const useStyles = makeStyles({
    openExternal: {

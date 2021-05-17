@@ -8,13 +8,13 @@ import { SetterOrUpdater } from "recoil";
  * @param defaultValue value to set state to
  */
 function useCleanup<T>(setStates: SetterOrUpdater<T>[], defaultValue: T) {
-   useEffect(() => {
+   useEffect(() => 
       setStates.forEach((setState) => {
          setState(defaultValue);
-      });
+      })
       // run once per component
       // eslint-disable-next-line
-   }, []);
+   , []);
 }
 
 export default useCleanup;

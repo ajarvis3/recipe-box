@@ -19,7 +19,7 @@ const Dashboard: FunctionComponent = () => {
          undefined,
          "GET"
       ).then((value: IRecipeData[] | number) => {
-         if (!(typeof value === "number")) setRecipeData(value);
+         if (value && !(typeof value === "number")) setRecipeData(value);
       });
    }, [userId]);
 
@@ -32,9 +32,9 @@ const Dashboard: FunctionComponent = () => {
          <Grid container spacing={0}>
             <RecipePopup />
             {recipeData &&
-               recipeData.map((data: IRecipeData) => (
+               recipeData.map((data: IRecipeData, index: number) => (
                   <Grid item key={data._id}>
-                     <RecipeCard metadata={data} />
+                     <RecipeCard metadata={data} index={index} />
                   </Grid>
                ))}
          </Grid>

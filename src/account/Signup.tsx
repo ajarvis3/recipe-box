@@ -53,7 +53,7 @@ const SignUp: FunctionComponent = () => {
       response.then((value) => {
          if (typeof value === "number") {
             // do nothing
-         } else {
+         } else if (value) {
             setLogin(true);
             setUserId(value.id);
             setToken(value.token);

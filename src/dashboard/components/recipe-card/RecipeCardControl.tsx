@@ -1,16 +1,17 @@
 import React, { FunctionComponent } from "react";
 import RecipeCardOpenUrl from "./RecipeCardOpenUrl";
-import IRecipeCardControlProps from "./types/recipecardcontrolprops";
-import IUrlProps from "./types/recipecardurlprops";
+import IRecipeCardControlProps from "./types/RecipeCardControlProps";
+import RecipeCardEdit from "./RecipeCardEdit";
 
 const RecipeCardControl: FunctionComponent<IRecipeCardControlProps> = (
    props: IRecipeCardControlProps
 ) => {
-   const { url, id } = props;
+   const { url, index } = props;
 
    return (
       <>
          <RecipeCardOpenUrl url={url} />
+         <RecipeCardEdit index={index} />
       </>
    );
 };

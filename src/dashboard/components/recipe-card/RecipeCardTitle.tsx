@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import IRecipeCardTitleProps from "./types/recipecardtitle";
+import IRecipeCardTitleProps from "./types/RecipeCardTitle";
 import { makeStyles, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles({

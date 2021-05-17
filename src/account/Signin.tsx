@@ -43,27 +43,28 @@ const SignIn: FunctionComponent = () => {
       response.then((value) => {
          if (typeof value === "number") {
             // do nothing
-         } else {
+         } else if (value) {
             setLogin(true);
             setUserId(value.id);
             setToken(value);
             return <Redirect to="/" />;
-         }   
-      })
+         }
+      });
    };
 
-   return (
-      (!login ?
-      <Box component='form' className={classes.signUpBox} onSubmit={onClick} >
+   return !login ? (
+      <Box component="form" className={classes.signUpBox} onSubmit={onClick}>
          <EnterText fieldName={"Email"} type="text" />
 
          <EnterText fieldName={"Password"} type="password" />
-         <Box component='div' className={classes.signUpButton}>
-            <Button variant="contained" color="primary" type='submit'>
+         <Box component="div" className={classes.signUpButton}>
+            <Button variant="contained" color="primary" type="submit">
                Sign In
             </Button>
          </Box>
-      </Box> : <Redirect to='/' />)
+      </Box>
+   ) : (
+      <Redirect to="/" />
    );
 };
 

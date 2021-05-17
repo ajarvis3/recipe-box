@@ -1,6 +1,6 @@
 import { Typography } from "@material-ui/core";
 import React, { FunctionComponent } from "react";
-import IRecipeCardDescriptionProps from "./types/recipecarddescription";
+import IRecipeCardDescriptionProps from "./types/RecipeCardDescription";
 
 const RecipeCardDescription: FunctionComponent<IRecipeCardDescriptionProps> = (
    props: IRecipeCardDescriptionProps

@@ -8,12 +8,12 @@ import RecipeCardTitle from "./RecipeCardTitle";
 const RecipeCardInfo: FunctionComponent<IRecipeCardProps> = (
    props: IRecipeCardProps
 ) => {
-   const { metadata } = props;
+   const { metadata, index } = props;
    const { title, description, url, _id } = metadata;
    return (
       <Box component="span">
          <RecipeCardTitle title={title} />
-         <RecipeCardControl url={url} id={_id} />
+         <RecipeCardControl url={url} id={_id} index={index} />
          <RecipeCardDescription description={description} />
       </Box>
    );

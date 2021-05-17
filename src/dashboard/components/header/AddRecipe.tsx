@@ -1,6 +1,9 @@
 import { Box, Button, makeStyles } from "@material-ui/core";
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import currentRecipeIndexState from "../../recoil/CurrentRecipeIndex";
+import currentRecipeUrl from "../../recoil/CurrentRecipeUrl";
+import isAddState from "../../recoil/IsAddState";
 import popupState from "../../recoil/Popup";
 
 const useStyles = makeStyles({
@@ -14,12 +17,18 @@ const useStyles = makeStyles({
 });
 
 const AddRecipe = () => {
-   const [open, setOpen] = useRecoilState(popupState);
+   const setOpen = useSetRecoilState(popupState);
+   const setAddState = useSetRecoilState(isAddState);
+   const setCurrentRecipe = useSetRecoilState(currentRecipeIndexState);
+   const setUrl = useSetRecoilState(currentRecipeUrl);
 
    const classes = useStyles();
 
    const onClick = () => {
+      setAddState(true);
+      setCurrentRecipe(-1);
       setOpen(true);
+      setUrl("");
    }
 
    return (

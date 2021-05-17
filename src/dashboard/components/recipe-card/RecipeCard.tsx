@@ -28,7 +28,7 @@ const RecipeCard: FunctionComponent<IRecipeCardProps> = (
 ) => {
    const classes = useStyles();
 
-   const { metadata } = props;
+   const { metadata, index } = props;
    const { title, imageUrl } = metadata;
    return (
       <Card raised className={classes.root}>
@@ -40,7 +40,7 @@ const RecipeCard: FunctionComponent<IRecipeCardProps> = (
             ></img>
          </CardContent>
          <CardContent className={classes.content} component="div">
-            <RecipeCardInfo metadata={metadata} />
+            <RecipeCardInfo metadata={metadata} index={index} />
          </CardContent>
       </Card>
    );

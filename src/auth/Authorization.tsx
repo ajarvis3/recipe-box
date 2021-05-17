@@ -21,12 +21,12 @@ const Authorization = (props: IAuthProps) => {
       response.then((value) => {
          if (typeof value === "number") {
             setLogin(false);
-         } else {
+         } else if (value) {
             setLogin(true);
             setToken(value.token);
             setUserIdState(value.id);
-         }   
-      })
+         }
+      });
       // auth, check if logged in blah blah blah
       //   setLogin(true);
    }, [login, setLogin]);
