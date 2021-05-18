@@ -1,21 +1,27 @@
 import { Grid } from "@material-ui/core";
-import React, { FunctionComponent, useEffect } from "react";
+import React, { FunctionComponent, useCallback, useEffect } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import authenticatedFetch from "../account/fetch/authenticatedfetch";
 import searchState from "../recoil/Search";
 import userIdState from "../recoil/UserId";
 import userRecipesState from "../recoil/UserRecipes";
 import RecipePopup from "./components/add-recipe/RecipePopup";
+import Confirmation from "./components/confirmation/Confirmation";
 import RecipeHeader from "./components/header/RecipeHeader";
 import RecipeCard from "./components/recipe-card/RecipeCard";
+import confirmationOpenState from "./recoil/ConfirmationOpen";
+import popupState from "./recoil/Popup";
 import IRecipeData from "./types/RecipeData";
 
 const Dashboard: FunctionComponent = () => {
    const [recipeData, setRecipeData] = useRecoilState(userRecipesState);
    const userId = useRecoilValue(userIdState);
    const search = useRecoilValue(searchState);
+   const popupOpen = useRecoilValue(popupState);
+   const confirmationOpen = useRecoilValue(confirmationOpenState);
 
-   const getSearchRecipes = () => {
+   const getSearchRecipes = useCallback(() => {
+      console.log('callback')
       const searchLower = search.toLowerCase();
       const filterMethod = (str: string) => {
          return str.toLowerCase().includes(searchLower);
@@ -30,7 +36,7 @@ const Dashboard: FunctionComponent = () => {
             recipe.comments.some((comment) => filterMethod(comment))
          );
       });
-   };
+   }, [search, recipeData]);
 
    useEffect(() => {
       authenticatedFetch(
@@ -49,7 +55,8 @@ const Dashboard: FunctionComponent = () => {
       <>
          <RecipeHeader />
          <Grid container spacing={0}>
-            <RecipePopup />
+            {popupOpen && <RecipePopup />}
+            {confirmationOpen && <Confirmation />}
             {recipeData &&
                getSearchRecipes().map((data: IRecipeData, index: number) => (
                   <Grid item key={data._id}>

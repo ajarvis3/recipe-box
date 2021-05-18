@@ -16,6 +16,7 @@ const generalFetch = (
    console.log(env);
    console.log(host);
    const url = new URL(urlPath, host).href;
+   console.log(url);
    const options = body
       ? {
             method: method,
@@ -26,18 +27,21 @@ const generalFetch = (
             method: method,
             headers: headers,
          };;
-   return fetch(url, options).then(
-      (value) => {
-         if (value.status >= 200 && value.status <= 300) {
-            return value.json();
-         } else {
-            return value.status;
-         }
-      },
-      (err) => {
-         console.error(err);
-      }
-   );
+         console.log(options);
+         const request = fetch(url, options);
+         console.log(request);
+         return request.then(
+            (value) => {
+               if (value.status >= 200 && value.status <= 300) {
+                  return value.json();
+               } else {
+                  return value.status;
+               }
+            },
+            (err) => {
+               console.error(err);
+            }
+         );
 };
 
 export default generalFetch;
