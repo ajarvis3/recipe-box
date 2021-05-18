@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import Button from "@material-ui/core/Button";
 
 import "./Signup.css";
@@ -21,7 +21,7 @@ const SignIn: FunctionComponent = () => {
    const [password, setPassword] = useRecoilState(passwordState);
    const [email, setEmail] = useRecoilState(emailState);
    const [login, setLogin] = useRecoilState(loginState);
-   const [userId, setUserId] = useRecoilState(userIdState);
+   const setUserId = useSetRecoilState(userIdState);
 
    const classes = useCommonStyles();
 

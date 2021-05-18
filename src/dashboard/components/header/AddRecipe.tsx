@@ -1,6 +1,6 @@
 import { Box, Button, makeStyles } from "@material-ui/core";
 import React from "react";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import currentRecipeIndexState from "../../recoil/CurrentRecipeIndex";
 import currentRecipeUrl from "../../recoil/CurrentRecipeUrl";
 import isAddState from "../../recoil/IsAddState";

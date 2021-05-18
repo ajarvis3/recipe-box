@@ -31,26 +31,20 @@ const TrashIcon: FunctionComponent<IRecipeCardControlProps> = (
 
    const handleRequest = () => {
       return () => {
-         console.log('handleRequest')
-         console.log(id)
          const newRecipes = recipes.slice();
          authenticatedFetch(`/content/recipes?id=${id}`, undefined, "DELETE")
             .then((value: IRecipeData) => {
-               console.log(value);
-               newRecipes.splice(index, 1)
+               newRecipes.splice(index, 1);;
                setRecipes(newRecipes);
             })
             .catch((err: Error) => {
                console.error(err);
-         });
-      }
+               });
+      };
    };
 
    const handleClick = () => {
-      console.log('handleClick')
-      console.log(handleRequest);
       setConfirmationRequestState(handleRequest);
-      console.log('set open')
       setConfirmationOpen(true);
    };
 

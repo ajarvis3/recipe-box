@@ -10,7 +10,6 @@ const RecipeCardInfo: FunctionComponent<IRecipeCardProps> = (
 ) => {
    const { metadata, index } = props;
    const { title, description, url, _id } = metadata;
-   console.log("user id", metadata.userUuid);
    return (
       <Box component="span">
          <RecipeCardTitle title={title} />

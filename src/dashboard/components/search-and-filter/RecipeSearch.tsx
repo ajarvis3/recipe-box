@@ -36,7 +36,7 @@ const RecipeSearch: FunctionComponent = () => {
    };
 
    useEffect(() => {
-      if (inputRef.current && inputRef.current !== null) (inputRef.current.firstChild?.firstChild as HTMLInputElement).focus();
+      if (inputRef.current) inputRef.current.focus();
    })
 
    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -46,16 +46,21 @@ const RecipeSearch: FunctionComponent = () => {
    return (
       <>
          {!open ? (
-               <Search fontSize="large" onClick={handleClick} className={classes.search} />
+            <Search
+               fontSize="large"
+               onClick={handleClick}
+               className={classes.search}
+            />
          ) : (
-            <TextField 
-               inputProps={{ style: {fontSize: 20}}} 
-               className={classes.input} 
-               ref={inputRef} 
-               type="text" 
-               value={search} 
-               onChange={handleChange} 
-               onBlur={handleBlur} />
+            <TextField
+               inputProps={{ style: { fontSize: 20 } }}
+               className={classes.input}
+               inputRef={inputRef}
+               type="text"
+               value={search}
+               onChange={handleChange}
+               onBlur={handleBlur}
+            />
          )}
       </>
    );

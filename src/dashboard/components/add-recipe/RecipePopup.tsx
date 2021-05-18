@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent } from "react";
 import Popup from "reactjs-popup";
 import { useRecoilState, useRecoilValue } from "recoil";
 import popupState from "../../recoil/Popup";
@@ -10,18 +10,10 @@ import RecipeFields from "./RecipeFields";
 const RecipePopup: FunctionComponent = () => {
    // make state for url input in recoil
    // make recoil state for open
-   const [url, setUrl] = useState("");
    const [open, setOpen] = useRecoilState(popupState);
    const isAdd = useRecoilValue(isAddState);
 
    const closeModal = () => setOpen(false);
-
-   const onChange = (
-      e: React.ChangeEvent<HTMLInputElement>,
-      setState: React.Dispatch<React.SetStateAction<string>>
-   ) => {
-      setState(e.target.value);
-   };
 
    return (
       <Popup

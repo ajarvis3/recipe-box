@@ -7,7 +7,7 @@ import currentRecipeIndexState from "../../recoil/CurrentRecipeIndex";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import userRecipesState from "../../../recoil/UserRecipes";
 import RecipeFieldInput from "./RecipeFieldInput";
-import { Button, makeStyles } from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import authenticatedFetch from "../../../account/fetch/authenticatedfetch";
 import IRecipeData from "../../types/RecipeData";
 import popupState from "../../recoil/Popup";
@@ -25,9 +25,6 @@ const RecipeFields: FunctionComponent = () => {
    const [source, setSource] = useState(currentRecipe.source);
    const [description, setDescription] = useState(currentRecipe.description);
    const [imageUrl, setImageUrl] = useState(currentRecipe.imageUrl);
-   const [comments, setComments] = useState(currentRecipe.comments);
-
-
 
    const getOnChange = (setState: Dispatch<SetStateAction<string>>) => {
       return (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +40,6 @@ const RecipeFields: FunctionComponent = () => {
          source: source,
          description: description,
          imageUrl: imageUrl,
-         comments: comments,
       };
    };
 

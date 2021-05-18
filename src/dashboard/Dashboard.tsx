@@ -6,10 +6,12 @@ import searchState from "../recoil/Search";
 import userIdState from "../recoil/UserId";
 import userRecipesState from "../recoil/UserRecipes";
 import RecipePopup from "./components/add-recipe/RecipePopup";
+import Comments from "./components/comments/Comments";
 import Confirmation from "./components/confirmation/Confirmation";
 import RecipeHeader from "./components/header/RecipeHeader";
 import RecipeCard from "./components/recipe-card/RecipeCard";
 import confirmationOpenState from "./recoil/ConfirmationOpen";
+import isCommentsOpenState from "./recoil/IsCommentsOpen";
 import popupState from "./recoil/Popup";
 import IRecipeData from "./types/RecipeData";
 
@@ -19,9 +21,9 @@ const Dashboard: FunctionComponent = () => {
    const search = useRecoilValue(searchState);
    const popupOpen = useRecoilValue(popupState);
    const confirmationOpen = useRecoilValue(confirmationOpenState);
+   const isCommentsOpen = useRecoilValue(isCommentsOpenState);
 
    const getSearchRecipes = useCallback(() => {
-      console.log('callback')
       const searchLower = search.toLowerCase();
       const filterMethod = (str: string) => {
          return str.toLowerCase().includes(searchLower);
@@ -46,7 +48,7 @@ const Dashboard: FunctionComponent = () => {
       ).then((value: IRecipeData[] | number) => {
          if (value && !(typeof value === "number")) setRecipeData(value);
       });
-   }, [userId]);
+   }, [userId, setRecipeData]);
 
    // if (process.env.NODE_ENV === "development") {
    //    recipe_data = require("./dev-data/data").default;
@@ -57,6 +59,7 @@ const Dashboard: FunctionComponent = () => {
          <Grid container spacing={0}>
             {popupOpen && <RecipePopup />}
             {confirmationOpen && <Confirmation />}
+            {isCommentsOpen && <Comments />}
             {recipeData &&
                getSearchRecipes().map((data: IRecipeData, index: number) => (
                   <Grid item key={data._id}>

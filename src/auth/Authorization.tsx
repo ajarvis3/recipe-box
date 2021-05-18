@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import loginState from "../recoil/LoginState";
 import IAuthProps from "./types/AuthProps";
 import Home from "../home/Home";
@@ -10,7 +10,7 @@ import userIdState from "../recoil/UserId";
 
 const Authorization = (props: IAuthProps) => {
    const [login, setLogin] = useRecoilState(loginState);
-   const [userId, setUserIdState] = useRecoilState(userIdState);
+   const setUserIdState = useSetRecoilState(userIdState);
 
    useEffect(() => {
       const response = authenticatedFetch(
@@ -29,7 +29,7 @@ const Authorization = (props: IAuthProps) => {
       });
       // auth, check if logged in blah blah blah
       //   setLogin(true);
-   }, [login, setLogin]);
+   }, [login, setLogin, setUserIdState]);
 
    return <>{login ? <Dashboard /> : <Home />}</>;
 };

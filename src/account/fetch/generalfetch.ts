@@ -13,35 +13,30 @@ const generalFetch = (
    const env = process.env.NODE_ENV || "development";
    let host = "https://recipeboxapp.azurewebsites.net";
    if (env === "development") host = "http://localhost:8080";
-   console.log(env);
-   console.log(host);
    const url = new URL(urlPath, host).href;
-   console.log(url);
    const options = body
       ? {
-            method: method,
-            headers: headers,
-            body: body,
-         }
+           method: method,
+           headers: headers,
+           body: body,
+        }
       : {
-            method: method,
-            headers: headers,
-         };;
-         console.log(options);
-         const request = fetch(url, options);
-         console.log(request);
-         return request.then(
-            (value) => {
-               if (value.status >= 200 && value.status <= 300) {
-                  return value.json();
-               } else {
-                  return value.status;
-               }
-            },
-            (err) => {
-               console.error(err);
-            }
-         );
-};
+           method: method,
+           headers: headers,
+        };
+   const request = fetch(url, options);
+   return request.then(
+      (value) => {
+         if (value.status >= 200 && value.status <= 300) {
+            return value.json();
+         } else {
+            return value.status;
+         }
+      },
+      (err) => {
+         console.error(err);
+      }
+   );
+};;
 
 export default generalFetch;
