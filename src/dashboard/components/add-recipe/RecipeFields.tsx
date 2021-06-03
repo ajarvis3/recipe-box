@@ -8,7 +8,7 @@ import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import userRecipesState from "../../../recoil/UserRecipes";
 import RecipeFieldInput from "./RecipeFieldInput";
 import { Button } from "@material-ui/core";
-import authenticatedFetch from "../../../account/fetch/authenticatedfetch";
+import authenticatedFetch from "../../../account/fetch/AuthenticatedFetch";
 import IRecipeData from "../../types/RecipeData";
 import popupState from "../../recoil/Popup";
 

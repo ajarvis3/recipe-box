@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core";
 import { DeleteOutlined } from "@material-ui/icons";
 import { FunctionComponent, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import authenticatedFetch from "../../../account/fetch/authenticatedfetch";
+import updateComments from "../../../account/fetch/UpdateComments";
 import userRecipesState from "../../../recoil/UserRecipes";
 import currentRecipeIndexState from "../../recoil/CurrentRecipeIndex";
 import IRecipeData from "../../types/RecipeData";
@@ -35,23 +35,25 @@ const DeleteComment: FunctionComponent<IDeleteComment> = (
 
    const handleDelete = () => {
       const newRecipes = recipes.slice();
-      const newComments = recipe.comments.slice();
-      newComments.splice(index, 1);
-      const newRecipe = { ...recipe, comments: newComments };
-      authenticatedFetch(
-         `content/recipes?id=${recipe._id}`,
-         JSON.stringify({ recipe: newRecipe }),
-         "PATCH"
-      ).then((value: IRecipeData) => {
-         console.log(value);
-         newRecipes[currentRecipe] = value;
-         setRecipes(newRecipes);
-         setDeleteCount(0);
-      });
+      updateComments(
+        recipes,
+        currentRecipe,
+        (comments: string[]) => {
+          comments.splice(index, 1);
+          return comments;
+        },
+        (value: IRecipeData) => {
+           console.log(value);
+          newRecipes[currentRecipe] = value;
+          setRecipes(newRecipes);
+          setDeleteCount(0);
+        }
+      );
    };
 
    const handleClick = () => {
       if (deleteCount === 1) {
+         console.log("here");
          handleDelete();
       } else {
          setDeleteCount(deleteCount + 1);

@@ -4,7 +4,7 @@ import loginState from "../recoil/LoginState";
 import IAuthProps from "./types/AuthProps";
 import Home from "../home/Home";
 import Dashboard from "../dashboard/Dashboard";
-import authenticatedFetch from "../account/fetch/authenticatedfetch";
+import authenticatedFetch from "../account/fetch/AuthenticatedFetch";
 import setToken from "../account/utils/settoken";
 import userIdState from "../recoil/UserId";
 

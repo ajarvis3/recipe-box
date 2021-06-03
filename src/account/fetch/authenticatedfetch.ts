@@ -1,4 +1,4 @@
-import generalFetch from "./generalfetch";
+import generalFetch from "./GeneralFetch";
 
 const authenticatedFetch = (
    path: string,

@@ -1,7 +1,7 @@
 import { Button, Container, makeStyles } from "@material-ui/core";
 import React, { FunctionComponent } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import authenticatedFetch from "../../../account/fetch/authenticatedfetch";
+import authenticatedFetch from "../../../account/fetch/AuthenticatedFetch";
 import userRecipesState from "../../../recoil/UserRecipes";
 import currentRecipeIndexState from "../../recoil/CurrentRecipeIndex";
 import isCommentsOpenState from "../../recoil/IsCommentsOpen";

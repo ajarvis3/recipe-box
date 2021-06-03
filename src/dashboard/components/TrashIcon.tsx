@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core";
 import DeleteOutlined from "@material-ui/icons/DeleteOutlined";
 import { FunctionComponent } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
-import authenticatedFetch from "../../account/fetch/authenticatedfetch";
+import authenticatedFetch from "../../account/fetch/AuthenticatedFetch";
 import userRecipesState from "../../recoil/UserRecipes";
 import confirmationOpenState from "../recoil/ConfirmationOpen";
 import confirmationRequestState from "../recoil/ConfirmationRequest";

@@ -5,7 +5,7 @@ import Button from "@material-ui/core/Button";
 import "./Signup.css";
 import { emailState, passwordState } from "../recoil";
 import useCleanup from "../hooks/Cleanup";
-import generalFetch from "./fetch/generalfetch";
+import generalFetch from "./fetch/GeneralFetch";
 import setToken from "./utils/settoken";
 import EnterText from "./EnterText";
 import { Redirect } from "react-router-dom";

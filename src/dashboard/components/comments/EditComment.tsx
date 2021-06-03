@@ -1,7 +1,8 @@
 import { Grid, makeStyles, TextField } from "@material-ui/core";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
-import authenticatedFetch from "../../../account/fetch/authenticatedfetch";
+import authenticatedFetch from "../../../account/fetch/AuthenticatedFetch";
+import updateComments from "../../../account/fetch/UpdateComments";
 import userRecipesState from "../../../recoil/UserRecipes";
 import currentRecipeIndexState from "../../recoil/CurrentRecipeIndex";
 import IRecipeData from "../../types/RecipeData";
@@ -32,23 +33,19 @@ const EditComment: FunctionComponent<IComment> = (props: IComment) => {
 
    const handleBlur = () => {
       const newRecipes = recipes.slice();
-      const recipe = newRecipes[currentRecipeIndex];
-      const newComments = recipe.comments.slice();
-      newComments[index] = comment;
-      const newRecipe = {
-         ...recipe,
-         comments: newComments,
-      };
-      authenticatedFetch(
-         `content/recipes?id=${recipe._id}`,
-         JSON.stringify({ recipe: newRecipe }),
-         "PATCH"
-      ).then((value: IRecipeData) => {
-         console.log(value);
-         newRecipes[currentRecipeIndex] = value;
-         setRecipes(newRecipes);
-         setEditComment(-1);
-      });
+      updateComments(
+        recipes,
+        currentRecipeIndex,
+        (comments: string[]) => {
+          comments[index] = comment;
+          return comments;
+        },
+        (value: IRecipeData) => {
+          newRecipes[currentRecipeIndex] = value;
+          setRecipes(newRecipes);
+          setEditComment(-1);
+        }
+      );
    };
 
    useEffect(() => {

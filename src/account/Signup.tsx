@@ -10,7 +10,7 @@ import {
    passwordState,
 } from "../recoil";
 
-import generalFetch from "./fetch/generalfetch";
+import generalFetch from "./fetch/GeneralFetch";
 import useCleanup from "../hooks/Cleanup";
 import EnterText from "./EnterText";
 import loginState from "../recoil/LoginState";
