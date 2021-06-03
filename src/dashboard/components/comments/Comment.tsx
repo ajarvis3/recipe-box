@@ -53,11 +53,9 @@ const Comment: FunctionComponent<IComment> = (props: IComment) => {
         currentRecipeIndex,
         (comments: string[]) => {
           comments[index] = comment;
-          console.log(comments);
           return comments;
         },
         (value: IRecipeData) => {
-           console.log(value);
           newRecipes[currentRecipeIndex] = value;
           setRecipes(newRecipes);
           setEditComment(false);

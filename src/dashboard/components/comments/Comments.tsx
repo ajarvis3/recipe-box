@@ -29,14 +29,11 @@ const Comments: FunctionComponent = () => {
 
    const recipeElements = recipes[index].comments.map(
       (value: string, index: number) => {
-        console.log(value);;
         return <Comment text={value} index={index} key={index} />;
       }
    );
-   console.log(recipeElements);
 
    const closeModal = () => {
-      console.log("here");
       setCommentsOpen(false);
       setIndex(-1);
    };

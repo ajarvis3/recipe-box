@@ -8,12 +8,8 @@ const updateComments = (
   onComplete: (value: IRecipeData) => void
 ) => {
   const recipe = recipes[recipeIndex];
-  console.log(recipe, recipes);
   const newComments = update(recipe.comments.slice());
   const newRecipe = { ...recipe, comments: newComments };
-  console.log(recipes, recipeIndex, update, onComplete);
-  console.log(newComments);
-  console.log(newRecipe);
   authenticatedFetch(
     `content/recipes?id=${recipe._id}`,
     JSON.stringify({ recipe: newRecipe }),
