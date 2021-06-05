@@ -5,6 +5,7 @@ import { useSetRecoilState } from "recoil";
 import isCommentsOpenState from "../../recoil/IsCommentsOpen";
 import currentRecipeIndexState from "../../recoil/CurrentRecipeIndex";
 import { makeStyles } from "@material-ui/core";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles({
    menu: {
@@ -28,7 +29,11 @@ const RecipeNotesIcon: FunctionComponent<IRecipeCardEditProps> = (
       setCurrentRecipe(index);
    };
 
-   return <MenuBook onClick={onClick} className={classes.menu} />;
+   return (
+     <Tooltip title="Recipe Notes">
+       <MenuBook onClick={onClick} className={classes.menu} />
+     </Tooltip>
+   );
 };
 
 export default RecipeNotesIcon;

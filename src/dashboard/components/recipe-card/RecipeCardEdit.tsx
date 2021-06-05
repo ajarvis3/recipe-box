@@ -1,5 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 import { Edit } from "@material-ui/icons";
+import Tooltip from "@material-ui/core/Tooltip";
 import React, { FunctionComponent } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import userRecipesState from "../../../recoil/UserRecipes";
@@ -36,7 +37,11 @@ const RecipeCardEdit: FunctionComponent<IRecipeCardEditProps> = (
       setUrl(recipes[index].url);
    };
 
-   return <Edit onClick={onClick} className={classes.edit} />;
+   return (
+     <Tooltip title="Edit Recipe">
+       <Edit onClick={onClick} className={classes.edit} />
+     </Tooltip>
+   );
 };
 
 export default RecipeCardEdit;

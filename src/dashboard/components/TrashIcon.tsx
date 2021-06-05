@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core";
 import DeleteOutlined from "@material-ui/icons/DeleteOutlined";
-import { FunctionComponent } from "react";
+import React, { FunctionComponent } from "react";
 import { useRecoilState, useSetRecoilState } from "recoil";
 import authenticatedFetch from "../../account/fetch/AuthenticatedFetch";
 import userRecipesState from "../../recoil/UserRecipes";
@@ -8,6 +8,7 @@ import confirmationOpenState from "../recoil/ConfirmationOpen";
 import confirmationRequestState from "../recoil/ConfirmationRequest";
 import IRecipeData from "../types/RecipeData";
 import IRecipeCardControlProps from "./recipe-card/types/RecipeCardControlProps";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useStyles = makeStyles({
    trash: {
@@ -48,7 +49,11 @@ const TrashIcon: FunctionComponent<IRecipeCardControlProps> = (
       setConfirmationOpen(true);
    };
 
-   return <DeleteOutlined onClick={handleClick} className={classes.trash}  />;
+   return (
+     <Tooltip title="Delete">
+       <DeleteOutlined onClick={handleClick} className={classes.trash} />
+     </Tooltip>
+   );
 };
 
 export default TrashIcon;

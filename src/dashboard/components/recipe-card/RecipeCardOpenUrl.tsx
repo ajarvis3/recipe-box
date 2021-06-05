@@ -1,6 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 import OpenInNewIcon from "@material-ui/icons/OpenInNew";
-import { FunctionComponent } from "react";
+import Tooltip from "@material-ui/core/Tooltip";
+import React, { FunctionComponent } from "react";
 import IUrlProps from "./types/RecipeCardUrlProps";
 
 const useStyles = makeStyles({
@@ -21,7 +22,11 @@ const RecipeCardOpenUrl: FunctionComponent<IUrlProps> = (props: IUrlProps) => {
       win?.focus();
    };
 
-   return <OpenInNewIcon className={classes.openExternal} onClick={open} />;
+   return (
+     <Tooltip title="Open Recipe">
+       <OpenInNewIcon className={classes.openExternal} onClick={open} />
+     </Tooltip>
+   );
 };
 
 export default RecipeCardOpenUrl;
