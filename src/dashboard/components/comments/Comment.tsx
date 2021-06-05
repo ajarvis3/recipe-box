@@ -25,7 +25,7 @@ const useStyles = makeStyles({
     margin: 0,
   },
   editComment: {
-    margin: "0% 5%",
+    margin: "0% 0% 0% 5%",
     width: "80%",
   },
 });
