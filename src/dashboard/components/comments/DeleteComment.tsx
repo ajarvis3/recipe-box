@@ -29,8 +29,6 @@ const DeleteComment: FunctionComponent<IDeleteComment> = (
 
    const [deleteCount, setDeleteCount] = useState(0);
 
-   const recipe = recipes[currentRecipe];
-
    const classes = useStyles();
 
    const handleDelete = () => {
