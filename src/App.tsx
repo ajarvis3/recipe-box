@@ -1,21 +1,17 @@
-import {FunctionComponent} from 'react';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
-import {RecoilRoot} from 'recoil';
+import { FunctionComponent } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { RecoilRoot } from "recoil";
 
-import Header from './common/Header';
-import SignUp from './account/Signup';
+import Header from "./common/Header";
+import SignUp from "./account/Signup";
 
 import {
-   createMuiTheme,
+   createTheme,
    makeStyles,
    ThemeProvider,
 } from "@material-ui/core/styles";
-import SignIn from './account/Signin';
-import Authorization from './auth/Authorization'
+import SignIn from "./account/Signin";
+import Authorization from "./auth/Authorization";
 
 const useStyles = makeStyles({
    App: {
@@ -29,42 +25,42 @@ const useStyles = makeStyles({
 });
 
 const App: FunctionComponent = () => {
-  const theme = createMuiTheme({
-     palette: {
-        primary: {
-           main: "#01A299",
-           contrastText: "#fff",
-        },
-        secondary: {
-           main: "#6200EE",
-           contrastText: "#fff",
-        },
-     },
-     typography: {
-        fontFamily: ['"Noto Sans"', 'Roboto', 'serif'].join(','),
-     },
-  });
+   const theme = createTheme({
+      palette: {
+         primary: {
+            main: "#01A299",
+            contrastText: "#fff",
+         },
+         secondary: {
+            main: "#6200EE",
+            contrastText: "#fff",
+         },
+      },
+      typography: {
+         fontFamily: ['"Noto Sans"', "Roboto", "serif"].join(","),
+      },
+   });
 
-  const classes = useStyles();
-  
-  return (
-     <RecoilRoot>
-        <Router>
-           <ThemeProvider theme={theme}>
-              <div className={classes.App}>
-                 <Header />
-                 <div className={classes.content}>
-                    <Switch>
-                       <Route path="/" exact component={Authorization} />
-                       <Route path="/signup" exact component={SignUp} />
-                       <Route path="/signin" exact component={SignIn} />
-                    </Switch>
-                 </div>
-              </div>
-           </ThemeProvider>
-        </Router>
-     </RecoilRoot>
-  );
-}
+   const classes = useStyles();
+
+   return (
+      <RecoilRoot>
+         <Router>
+            <ThemeProvider theme={theme}>
+               <div className={classes.App}>
+                  <Header />
+                  <div className={classes.content}>
+                     <Routes>
+                        <Route path="/" element={<Authorization />} />
+                        <Route path="/signup" element={<SignUp />} />
+                        <Route path="/signin" element={<SignIn />} />
+                     </Routes>
+                  </div>
+               </div>
+            </ThemeProvider>
+         </Router>
+      </RecoilRoot>
+   );
+};
 
 export default App;

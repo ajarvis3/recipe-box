@@ -15,7 +15,7 @@ import useCleanup from "../hooks/Cleanup";
 import EnterText from "./EnterText";
 import loginState from "../recoil/LoginState";
 import setToken from "./utils/settoken";
-import { Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { Box } from "@material-ui/core";
 import useCommonStyles from "./styles";
 import userIdState from "../recoil/UserId";
@@ -57,7 +57,7 @@ const SignUp: FunctionComponent = () => {
             setLogin(true);
             setUserId(value.id);
             setToken(value.token);
-            return <Redirect to="/" />;
+            return <Navigate to="/" />;
          }
       });
    };
@@ -75,7 +75,7 @@ const SignUp: FunctionComponent = () => {
          </Box>
       </Box>
    ) : (
-      <Redirect to="/" />
+      <Navigate to="/" />
    );
 };
 
