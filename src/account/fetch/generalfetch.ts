@@ -14,13 +14,16 @@ const generalFetch = (
    let host = "https://recipeboxapp.azurewebsites.net";
    if (env === "development") host = "http://localhost:8080";
    const url = new URL(urlPath, host).href;
-   const options: RequestInit = {};
-   options["mode"] = "no-cors";
-   options["method"] = method;
-   options["headers"] = headers;
-   if (body) {
-      options["body"] = body;
-   }
+   const options = body
+      ? {
+           method: method,
+           headers: headers,
+           body: body,
+        }
+      : {
+           method: method,
+           headers: headers,
+        };
    const request = fetch(url, options);
    return request.then(
       (value) => {

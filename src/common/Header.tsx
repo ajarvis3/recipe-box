@@ -7,6 +7,7 @@ import SignOut from "./SignOut";
 import { Box, makeStyles, Typography } from "@material-ui/core";
 import useCommonStyles from "./styles";
 import SignIn from "./SignIn";
+import SignInGoogle from "../account/SignInGoogle";
 
 const useStyles = makeStyles({
    title: {
@@ -53,6 +54,7 @@ const Header: FunctionComponent = () => {
          </Box>
          <Box component="span" className={classes.headerItemWrapper}>
             <Typography variant="h3" className={classes.headerRightSide}>
+               {!login && <SignInGoogle />}
                <Routes>
                   {!login ? (
                      <Route path="/" element={<SignIn />} />
