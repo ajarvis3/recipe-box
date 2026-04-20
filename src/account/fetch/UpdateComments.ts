@@ -10,11 +10,20 @@ const updateComments = (
   const recipe = recipes[recipeIndex];
   const newComments = update(recipe.comments.slice());
   const newRecipe = { ...recipe, comments: newComments };
-  authenticatedFetch(
+  authenticatedFetch<IRecipeData>(
     `content/recipes?id=${recipe._id}`,
     JSON.stringify({ recipe: newRecipe }),
     "PATCH"
-  ).then(onComplete);
+  ).then((value) => {
+    if (!value.ok) {
+      console.error(value.error);
+      return;
+    }
+
+    if (value.data) {
+      onComplete(value.data);
+    }
+  });
 };
 
 export default updateComments;

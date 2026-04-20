@@ -33,9 +33,18 @@ const TrashIcon: FunctionComponent<IRecipeCardControlProps> = (
    const handleRequest = () => {
       return () => {
          const newRecipes = recipes.slice();
-         authenticatedFetch(`/content/recipes?id=${id}`, undefined, "DELETE")
-            .then((value: IRecipeData) => {
-               newRecipes.splice(index, 1);;
+         authenticatedFetch<IRecipeData>(
+            `/content/recipes?id=${id}`,
+            undefined,
+            "DELETE"
+         )
+            .then((value) => {
+               if (!value.ok) {
+                  console.error(value.error);
+                  return;
+               }
+
+               newRecipes.splice(index, 1);
                setRecipes(newRecipes);
             })
             .catch((err: Error) => {

@@ -1,20 +1,22 @@
 import { GoogleLogin } from "@react-oauth/google";
-import { Navigate } from "react-router";
-import { useRecoilState, useSetRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import loginState from "../recoil/LoginState";
 import userIdState from "../recoil/UserId";
 import generalFetch from "./fetch/GeneralFetch";
 import setToken from "./utils/settoken";
 
 const SignInGoogle = () => {
-   const [login, setLogin] = useRecoilState(loginState);
+   const setLogin = useSetRecoilState(loginState);
    const setUserId = useSetRecoilState(userIdState);
 
    return (
       <GoogleLogin
          nonce=""
          onSuccess={(credentialResponse) => {
-            const response = generalFetch(
+            const response = generalFetch<{
+               id: string;
+               token: string;
+            }>(
                "auth/oauth",
                JSON.stringify({
                   credential: credentialResponse.credential,
@@ -26,13 +28,15 @@ const SignInGoogle = () => {
                "POST"
             );
             response.then((value) => {
-               if (typeof value === "number") {
-                  // do nothing
-               } else if (value) {
+               if (!value.ok) {
+                  console.error(value.error);
+                  return;
+               }
+
+               if (value.data) {
                   setLogin(true);
-                  setUserId(value.id);
-                  setToken(value);
-                  return <Navigate to="/" />;
+                  setUserId(value.data.id);
+                  setToken(value.data);
                }
             });
          }}

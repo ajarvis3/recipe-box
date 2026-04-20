@@ -41,12 +41,12 @@ const Dashboard: FunctionComponent = () => {
    }, [search, recipeData]);
 
    useEffect(() => {
-      authenticatedFetch(
+      authenticatedFetch<IRecipeData[]>(
          `/content/recipes?uid=${userId}`,
          undefined,
          "GET"
-      ).then((value: IRecipeData[] | number) => {
-         if (value && !(typeof value === "number")) setRecipeData(value);
+      ).then((value) => {
+         if (value.ok && value.data) setRecipeData(value.data);
       });
    }, [userId, setRecipeData]);
 

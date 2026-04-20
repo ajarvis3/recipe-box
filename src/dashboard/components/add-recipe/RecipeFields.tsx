@@ -48,14 +48,21 @@ const RecipeFields: FunctionComponent = () => {
       const newRecipe = getNewRecipe();
       const newRecipes = recipes.slice();
       // deal with backend things...
-      authenticatedFetch(
+      authenticatedFetch<IRecipeData>(
          `/content/recipes?id=${newRecipe._id}`,
          JSON.stringify({ recipe: newRecipe }),
          "PATCH"
-      ).then((value: IRecipeData) => {
-         newRecipes[recipeIndex] = value;
-         setRecipes(newRecipes);
-         setOpen(false);
+      ).then((value) => {
+         if (!value.ok) {
+            console.error(value.error);
+            return;
+         }
+
+         if (value.data) {
+            newRecipes[recipeIndex] = value.data;
+            setRecipes(newRecipes);
+            setOpen(false);
+         }
       });
    };
 

@@ -31,14 +31,21 @@ const AddComment: FunctionComponent = () => {
          ...recipe,
          comments: newComments,
       };
-      authenticatedFetch(
+      authenticatedFetch<IRecipeData>(
          `content/recipes?id=${recipe._id}`,
          JSON.stringify({ recipe: newRecipe }),
          "PATCH"
-      ).then((value: IRecipeData) => {
-         console.log(value);
-         newRecipes[currentRecipeIndex] = value;
-         setRecipes(newRecipes);
+      ).then((value) => {
+         if (!value.ok) {
+            console.error(value.error);
+            return;
+         }
+
+         if (value.data) {
+            console.log(value.data);
+            newRecipes[currentRecipeIndex] = value.data;
+            setRecipes(newRecipes);
+         }
       });
    };
 

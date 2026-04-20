@@ -29,7 +29,10 @@ const SignIn: FunctionComponent = () => {
 
    const onClick = (e: React.SyntheticEvent) => {
       e.preventDefault();
-      const response = generalFetch(
+      const response = generalFetch<{
+         id: string;
+         token: string;
+      }>(
          "auth/signin",
          JSON.stringify({
             email: email,
@@ -41,12 +44,15 @@ const SignIn: FunctionComponent = () => {
          "POST"
       );
       response.then((value) => {
-         if (typeof value === "number") {
-            // do nothing
-         } else if (value) {
+         if (!value.ok) {
+            console.error(value.error);
+            return;
+         }
+
+         if (value.data) {
             setLogin(true);
-            setUserId(value.id);
-            setToken(value);
+            setUserId(value.data.id);
+            setToken(value.data);
             return <Navigate to="/" />;
          }
       });

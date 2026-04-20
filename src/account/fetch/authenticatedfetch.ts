@@ -1,6 +1,6 @@
 import generalFetch from "./GeneralFetch";
 
-const authenticatedFetch = (
+const authenticatedFetch = <T>(
    path: string,
    body: BodyInit | undefined,
    method: string
@@ -9,7 +9,7 @@ const authenticatedFetch = (
       "Content-Type": "application/json",
       "Authentication": "bearer " + localStorage.getItem("token"),
    };
-   return generalFetch(path, body, headers, method);
+   return generalFetch<T>(path, body, headers, method);
 };
 
 export default authenticatedFetch;

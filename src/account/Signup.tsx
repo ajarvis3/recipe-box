@@ -37,7 +37,10 @@ const SignUp: FunctionComponent = () => {
 
    const onSubmit = (e: React.FormEvent) => {
       e.preventDefault();
-      const response = generalFetch(
+      const response = generalFetch<{
+         id: string;
+         token: string;
+      }>(
          "users/signup",
          JSON.stringify({
             firstName: firstName,
@@ -51,12 +54,15 @@ const SignUp: FunctionComponent = () => {
          "POST"
       );
       response.then((value) => {
-         if (typeof value === "number") {
-            // do nothing
-         } else if (value) {
+         if (!value.ok) {
+            console.error(value.error);
+            return;
+         }
+
+         if (value.data) {
             setLogin(true);
-            setUserId(value.id);
-            setToken(value.token);
+            setUserId(value.data.id);
+            setToken(value.data);
             return <Navigate to="/" />;
          }
       });

@@ -12,18 +12,21 @@ const Authorization = () => {
    const setUserIdState = useSetRecoilState(userIdState);
 
    useEffect(() => {
-      const response = authenticatedFetch(
+      const response = authenticatedFetch<{
+         id: string;
+         token: string;
+      }>(
          "auth/verify",
          JSON.stringify({}),
          "POST"
       );
       response.then((value) => {
-         if (typeof value === "number") {
+         if (!value.ok || !value.data) {
             setLogin(false);
-         } else if (value) {
+         } else {
             setLogin(true);
-            setToken(value.token);
-            setUserIdState(value.id);
+            setToken(value.data);
+            setUserIdState(value.data.id);
          }
       });
       // auth, check if logged in blah blah blah

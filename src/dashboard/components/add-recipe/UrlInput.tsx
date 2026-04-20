@@ -39,14 +39,21 @@ const UrlInput: FunctionComponent = () => {
 
    const onClick = (e: React.SyntheticEvent) => {
       e.preventDefault();
-      authenticatedFetch(
+      authenticatedFetch<IRecipeData>(
          "content/recipes",
          JSON.stringify({ url }),
          "POST"
-      ).then((value: IRecipeData) => {
-         const newRecipeData = recipeData.slice();
-         newRecipeData.push(value);
-         setRecipeData(newRecipeData);
+      ).then((value) => {
+         if (!value.ok) {
+            console.error(value.error);
+            return;
+         }
+
+         if (value.data) {
+            const newRecipeData = recipeData.slice();
+            newRecipeData.push(value.data);
+            setRecipeData(newRecipeData);
+         }
       });
    };
 

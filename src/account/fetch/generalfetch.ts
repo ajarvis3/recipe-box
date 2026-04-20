@@ -1,42 +1,87 @@
-const generalFetch = (
+export type GeneralFetchResult<T> =
+   | {
+        ok: true;
+        status: number;
+        data: T | null;
+     }
+   | {
+        ok: false;
+        status: number;
+        error: string;
+        data: unknown;
+     };
+
+const readResponseBody = async (response: Response) => {
+   const text = await response.text();
+
+   if (!text) {
+      return null;
+   }
+
+   try {
+      return JSON.parse(text);
+   } catch {
+      return text;
+   }
+};
+
+const generalFetch = async <T>(
    urlPath: string,
    body: BodyInit | undefined,
    headers: HeadersInit | undefined,
    method: string
-) => {
-   if (!headers) {
-      headers = {
-         "Content-type": "application/json; charset=UTF-8",
-      };
-   }
+): Promise<GeneralFetchResult<T>> => {
+   const resolvedHeaders: HeadersInit = headers || {
+      "Content-type": "application/json; charset=UTF-8",
+   };
+
    // switch this to env at some point
    const env = process.env.NODE_ENV || "development";
    let host = "https://recipeboxapp.azurewebsites.net";
    if (env === "development") host = "http://localhost:8080";
+
    const url = new URL(urlPath, host).href;
    const options = body
       ? {
            method: method,
-           headers: headers,
+           headers: resolvedHeaders,
            body: body,
         }
       : {
            method: method,
-           headers: headers,
+           headers: resolvedHeaders,
         };
-   const request = fetch(url, options);
-   return request.then(
-      (value) => {
-         if (value.status >= 200 && value.status <= 300) {
-            return value.json();
-         } else {
-            return value.status;
-         }
-      },
-      (err) => {
-         console.error(err);
+
+   try {
+      const response = await fetch(url, options);
+      const data = await readResponseBody(response);
+
+      if (response.ok) {
+         return {
+            ok: true,
+            status: response.status,
+            data: data as T | null,
+         };
       }
-   );
+
+      return {
+         ok: false,
+         status: response.status,
+         error:
+            typeof data === "string"
+               ? data
+               : `Request failed with status ${response.status}`,
+         data,
+      };
+   } catch (err) {
+      console.error(err);
+      return {
+         ok: false,
+         status: 0,
+         error: err instanceof Error ? err.message : "Network request failed",
+         data: null,
+      };
+   }
 };
 
 export default generalFetch;
