@@ -50,7 +50,7 @@ const Dashboard: FunctionComponent = () => {
       });
    }, [userId, setRecipeData]);
 
-   // if (process.env.NODE_ENV === "development") {
+   // if (import.meta.env.DEV) {
    //    recipe_data = require("./dev-data/data").default;
    // }
    return (
