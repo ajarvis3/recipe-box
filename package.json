@@ -3,8 +3,13 @@
    "version": "0.1.0",
    "private": true,
    "dependencies": {
+      "@emotion/react": "^11.14.0",
+      "@emotion/styled": "^11.14.1",
+      "@google/genai": "^1.50.1",
       "@material-ui/core": "^4.12.4",
       "@material-ui/icons": "^4.11.2",
+      "@mui/material": "^9.0.0",
+      "@mui/styles": "^6.4.8",
       "@react-oauth/google": "0.8.1",
       "@testing-library/jest-dom": "5.17.0",
       "@testing-library/react": "14.3.1",

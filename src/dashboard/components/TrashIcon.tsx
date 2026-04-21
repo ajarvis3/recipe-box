@@ -19,12 +19,12 @@ const useStyles = makeStyles({
 });
 
 const TrashIcon: FunctionComponent<IRecipeCardControlProps> = (
-   props: IRecipeCardControlProps
+   props: IRecipeCardControlProps,
 ) => {
    const [recipes, setRecipes] = useRecoilState(userRecipesState);
    const setConfirmationOpen = useSetRecoilState(confirmationOpenState);
    const setConfirmationRequestState = useSetRecoilState(
-      confirmationRequestState
+      confirmationRequestState,
    );
    const { index, id } = props;
 
@@ -32,11 +32,10 @@ const TrashIcon: FunctionComponent<IRecipeCardControlProps> = (
 
    const handleRequest = () => {
       return () => {
-         const newRecipes = recipes.slice();
          authenticatedFetch<IRecipeData>(
             `/content/recipes?id=${id}`,
             undefined,
-            "DELETE"
+            "DELETE",
          )
             .then((value) => {
                if (!value.ok) {
@@ -44,12 +43,13 @@ const TrashIcon: FunctionComponent<IRecipeCardControlProps> = (
                   return;
                }
 
+               const newRecipes = recipes.slice();
                newRecipes.splice(index, 1);
                setRecipes(newRecipes);
             })
             .catch((err: Error) => {
                console.error(err);
-               });
+            });
       };
    };
 
@@ -59,9 +59,9 @@ const TrashIcon: FunctionComponent<IRecipeCardControlProps> = (
    };
 
    return (
-     <Tooltip title="Delete">
-       <DeleteOutlined onClick={handleClick} className={classes.trash} />
-     </Tooltip>
+      <Tooltip title="Delete">
+         <DeleteOutlined onClick={handleClick} className={classes.trash} />
+      </Tooltip>
    );
 };
 

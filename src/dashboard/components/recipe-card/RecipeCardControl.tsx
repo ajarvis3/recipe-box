@@ -6,7 +6,7 @@ import TrashIcon from "../TrashIcon";
 import RecipeNotesIcon from "./RecipeNotesIcon";
 
 const RecipeCardControl: FunctionComponent<IRecipeCardControlProps> = (
-   props: IRecipeCardControlProps
+   props: IRecipeCardControlProps,
 ) => {
    const { url, index, id } = props;
 

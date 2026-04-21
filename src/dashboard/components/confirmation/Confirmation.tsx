@@ -14,10 +14,10 @@ const useStyles = makeStyles({
 
 const Confirmation: FunctionComponent = () => {
    const [confirmationOpen, setConfirmationOpen] = useRecoilState(
-      confirmationOpenState
+      confirmationOpenState,
    );
    const [confirmationRequest, setConfirmationRequest] = useRecoilState(
-      confirmationRequestState
+      confirmationRequestState,
    );
 
    const classes = useStyles();
@@ -40,17 +40,19 @@ const Confirmation: FunctionComponent = () => {
          position="center center"
       >
          Are you sure you want to send this request?
-         <Button variant="contained" onClick={handleConfirm} color="secondary">
+         <Button
+            variant="contained"
+            onClick={handleConfirm}
+            color="secondary"
+            disableRipple
+         >
             Confirm
          </Button>
          <Button
-           
             variant="contained"
-          
-             onClick={closeModal}
-          
-             className={classes.cancel}
-         
+            onClick={closeModal}
+            className={classes.cancel}
+            disableRipple
          >
             Cancel
          </Button>
